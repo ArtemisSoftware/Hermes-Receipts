@@ -1,4 +1,4 @@
-package com.artemissoftware.hermesreceipts.feature.receipts.data.dto
+package com.artemissoftware.hermesreceipts.feature.receipts.data.remote.dto
 
 
 import com.squareup.moshi.Json
