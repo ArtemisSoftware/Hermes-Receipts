@@ -4,6 +4,7 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -16,8 +17,9 @@ import javax.inject.Inject
 
 class ImageRepositoryImpl @Inject constructor(private val context: Context): ImageRepository {
 
-    override suspend fun saveImage(image: Bitmap): Resource<String> {
+    override suspend fun saveImage(image: ByteArray): Resource<String> {
 
+        val bitmap = byteArrayToBitmap(image)
         val resolver: ContentResolver = context.applicationContext.contentResolver
 
         val imageCollection: Uri = when {
@@ -53,7 +55,7 @@ class ImageRepositoryImpl @Inject constructor(private val context: Context): Ima
             kotlin.runCatching {
                 resolver.openOutputStream(uri).use { outputStream: OutputStream? ->
                     checkNotNull(outputStream) { "Couldn't create file for gallery, MediaStore output stream is null" }
-                    image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
                 }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -76,6 +78,10 @@ class ImageRepositoryImpl @Inject constructor(private val context: Context): Ima
     }
 
     private fun getImageName(time: String) = "receipt_$time.$IMAGE_EXTENSION"
+
+    private fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    }
 
     private companion object {
         const val IMAGE_EXTENSION = "jpg"
