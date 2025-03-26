@@ -3,7 +3,7 @@ package com.artemissoftware.hermesreceipts.feature.capture.presentation.navigati
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.artemissoftware.hermesreceipts.feature.capture.presentation.CaptureScreen
+import com.artemissoftware.hermesreceipts.feature.capture.presentation.capture.CaptureScreen
 
 fun NavGraphBuilder.captureNavGraph(
     navigateToValidation:(String) -> Unit,

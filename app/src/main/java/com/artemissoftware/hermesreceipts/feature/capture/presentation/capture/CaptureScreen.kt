@@ -1,4 +1,4 @@
-package com.artemissoftware.hermesreceipts.feature.capture.presentation
+package com.artemissoftware.hermesreceipts.feature.capture.presentation.capture
 
 import androidx.camera.view.CameraController
 import androidx.camera.view.LifecycleCameraController

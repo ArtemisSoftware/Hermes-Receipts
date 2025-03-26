@@ -1,7 +1,6 @@
-package com.artemissoftware.hermesreceipts.feature.capture.presentation
+package com.artemissoftware.hermesreceipts.feature.capture.presentation.capture
 
 import android.graphics.Bitmap
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.artemissoftware.hermesreceipts.core.presentation.composables.events.UiEvent
 import com.artemissoftware.hermesreceipts.core.presentation.composables.events.UiEventViewModel
