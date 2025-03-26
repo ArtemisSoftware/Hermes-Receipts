@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation(libs.material.icons.extended)
+
     implementation(libs.camera.core)
     implementation(libs.camera.view)
     implementation(libs.camera.camera2)
