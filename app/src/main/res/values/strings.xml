@@ -3,4 +3,10 @@
     <string name="store">Store</string>
     <string name="total">Total</string>
     <string name="store_not_identified">Store not identified</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="receipts">Receipts</string>
+    <string name="currency">Currency</string>
+    <string name="date">Date</string>
+    <string name="receipt_scan">Receipt Scan</string>
+    <string name="receipt_details">Receipt details</string>
 </resources>
