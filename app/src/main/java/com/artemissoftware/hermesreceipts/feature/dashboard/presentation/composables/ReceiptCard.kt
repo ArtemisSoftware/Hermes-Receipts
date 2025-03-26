@@ -1,4 +1,4 @@
-package com.artemissoftware.hermesreceipts.feature.dashboard.composables
+package com.artemissoftware.hermesreceipts.feature.dashboard.presentation.composables
 
  import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
