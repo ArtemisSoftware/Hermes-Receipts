@@ -23,6 +23,7 @@ fun HRScaffold(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     floatingActionButton: @Composable () -> Unit = {},
+    topBar: @Composable () -> Unit = {},
 ) {
 
     Box(
@@ -38,6 +39,7 @@ fun HRScaffold(
                 modifier = Modifier
                     .then(modifier),
                 floatingActionButton = floatingActionButton,
+                topBar = topBar,
                 content = { innerPadding ->
 
                     Column(
