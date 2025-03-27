@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.de.mannodermaus.android.junit5)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
