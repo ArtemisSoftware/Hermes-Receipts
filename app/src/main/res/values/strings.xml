@@ -9,4 +9,9 @@
     <string name="date">Date</string>
     <string name="receipt_scan">Receipt Scan</string>
     <string name="receipt_details">Receipt details</string>
+    <string name="delete">Delete</string>
+    <string name="an_error_has_occurred">An error has occurred!</string>
+    <string name="close">Close</string>
+    <string name="error_saving_image">Error saving image</string>
+    <string name="couldn_t_create_file_for_gallery">Couldn\'t create file for gallery</string>
 </resources>
