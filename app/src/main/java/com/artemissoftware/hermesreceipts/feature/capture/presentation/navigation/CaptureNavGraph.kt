@@ -6,13 +6,15 @@ import androidx.navigation.compose.composable
 import com.artemissoftware.hermesreceipts.feature.capture.presentation.capture.CaptureScreen
 
 fun NavGraphBuilder.captureNavGraph(
+    navigateToError:(String) -> Unit,
     navigateToValidation:(String) -> Unit,
     navController: NavHostController
 ) {
 
     composable<CaptureRoute.Capture> {
         CaptureScreen(
-            navigateToValidation = navigateToValidation
+            navigateToValidation = navigateToValidation,
+            navigateToError = navigateToError
         )
     }
 }

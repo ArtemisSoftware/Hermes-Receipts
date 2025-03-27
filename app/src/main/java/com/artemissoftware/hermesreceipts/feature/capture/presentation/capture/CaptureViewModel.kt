@@ -2,16 +2,20 @@ package com.artemissoftware.hermesreceipts.feature.capture.presentation.capture
 
 import android.graphics.Bitmap
 import androidx.lifecycle.viewModelScope
+import com.artemissoftware.hermesreceipts.core.domain.error.DataError
 import com.artemissoftware.hermesreceipts.core.presentation.composables.events.UiEvent
 import com.artemissoftware.hermesreceipts.core.presentation.composables.events.UiEventViewModel
+import com.artemissoftware.hermesreceipts.core.presentation.util.UiText
 import com.artemissoftware.hermesreceipts.core.presentation.util.extensions.toByteArray
 import com.artemissoftware.hermesreceipts.feature.capture.domain.usecase.SaveImageUseCase
+import com.artemissoftware.hermesreceipts.feature.capture.presentation.navigation.CaptureRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.artemissoftware.hermesreceipts.core.presentation.util.extensions.toUiText
 
 @HiltViewModel
 class CaptureViewModel @Inject constructor(
@@ -43,8 +47,13 @@ class CaptureViewModel @Inject constructor(
                         _state.update { it.copy(imagePath = path, isLoading = false) }
                         sendEvent(path)
                     }
-                    .onFailure {
+                    .onFailure { error ->
                         _state.update { it.copy(isLoading = false) }
+                        when(error){
+                            DataError.ImageError.CreateImage -> sendError(error.toUiText())
+                            is DataError.ImageError.Error -> sendError(error.toUiText())
+                            else -> Unit
+                        }
                     }
             }
         }
@@ -52,9 +61,13 @@ class CaptureViewModel @Inject constructor(
 
     private fun sendEvent(imagePath: String){
         viewModelScope.launch {
-            sendUiEvent(
-                UiEvent.Navigate(value = imagePath, route = "validate")
-            )
+            sendUiEvent(UiEvent.Navigate(value = imagePath, route = CaptureRoute.VALIDATION))
+        }
+    }
+
+    private fun sendError(message: UiText) {
+        viewModelScope.launch {
+            sendUiEvent(UiEvent.Navigate(message, CaptureRoute.ERROR))
         }
     }
 

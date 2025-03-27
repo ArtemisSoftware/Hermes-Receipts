@@ -1,5 +1,9 @@
 package com.artemissoftware.hermesreceipts.testdata
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import com.artemissoftware.hermesreceipts.core.data.database.entity.ReceiptEntity
 import com.artemissoftware.hermesreceipts.core.domain.models.Receipt
 import java.time.LocalDate

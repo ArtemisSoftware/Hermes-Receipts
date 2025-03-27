@@ -2,7 +2,12 @@ package com.artemissoftware.hermesreceipts.feature.capture.presentation.navigati
 
 import kotlinx.serialization.Serializable
 
-object CaptureRoute {
+sealed class CaptureRoute {
     @Serializable
     data object Capture
+
+    companion object {
+        const val VALIDATION = "validation"
+        const val ERROR = "error"
+    }
 }

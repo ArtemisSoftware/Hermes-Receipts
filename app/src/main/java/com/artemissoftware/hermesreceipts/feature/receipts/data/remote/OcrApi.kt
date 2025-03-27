@@ -11,7 +11,8 @@ interface OcrApi {
     @Multipart
     @POST("api/v1/receipt")
     suspend fun uploadReceipt(
-        @Part body: MultipartBody.Part,
+        @Part("api_key") apiKey: RequestBody,
+        @Part("recognizer") recognizer: RequestBody,
         @Part file: MultipartBody.Part
     ): OcrDto
 

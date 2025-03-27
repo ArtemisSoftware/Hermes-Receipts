@@ -3,6 +3,7 @@ package com.artemissoftware.hermesreceipts.core.presentation.util.extensions
 import com.artemissoftware.hermesreceipts.R
 import com.artemissoftware.hermesreceipts.core.domain.error.DataError
 import com.artemissoftware.hermesreceipts.core.presentation.util.UiText
+import com.artemissoftware.hermesreceipts.core.domain.error.Error
 
 fun Error.toUiText(): UiText {
     return when (this) {
