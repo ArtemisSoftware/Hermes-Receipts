@@ -19,6 +19,7 @@ kotlinxSerializationJson = "1.7.3"
 retrofit = "2.9.0"
 okhttp = "4.10.0"
 room = "2.4.3"
+coil-compose = "2.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -69,6 +70,10 @@ logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercep
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room"  }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room"  }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room"  }
+
+# Coil
+
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
