@@ -21,6 +21,14 @@ okhttp = "4.10.0"
 room = "2.4.3"
 coil-compose = "2.5.0"
 
+# test
+
+junit-jupiter = "5.9.3"
+assertk = "0.26.1"
+de-mannodermaus-android-junit5 = "1.9.3.0"
+kotlinx-coroutines-test = "1.7.1"
+turbine = "0.7.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -75,6 +83,16 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 
+# Test
+
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit-jupiter" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit-jupiter" }
+
+assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -82,4 +100,8 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+# test
+
+de-mannodermaus-android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "de-mannodermaus-android-junit5" }
 
