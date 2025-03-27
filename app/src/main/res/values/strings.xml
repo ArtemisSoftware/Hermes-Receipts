@@ -21,4 +21,5 @@
     <string name="error_not_mapped">Error not mapped</string>
     <string name="error_getting_image_from_uri">Error getting image from uri</string>
     <string name="no_receipt_found">No receipt found</string>
+    <string name="no_receipts_available">No receipts available</string>
 </resources>
