@@ -14,6 +14,8 @@ import com.artemissoftware.hermesreceipts.core.data.util.ImageUtil.getImageName
 import com.artemissoftware.hermesreceipts.core.domain.Resource
 import com.artemissoftware.hermesreceipts.core.domain.error.DataError
 import com.artemissoftware.hermesreceipts.core.domain.repository.ImageRepository
+import java.io.File
+import java.io.FileOutputStream
 import java.io.OutputStream
 import javax.inject.Inject
 
@@ -82,6 +84,34 @@ class ImageRepositoryImpl @Inject constructor(private val context: Context): Ima
     private fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
+
+    override suspend fun saveImageAndGetUri(imagePath: String): Resource<String> {
+        val imageUri = Uri.parse(imagePath)
+        val nowTimestamp: Long = System.currentTimeMillis()
+        return try {
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, getImageName(IMAGE_FILE_PREFIX, nowTimestamp.toString()))
+                put(MediaStore.Images.Media.MIME_TYPE, IMAGE_MIME_TYPE)
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM + IMAGE_DIRECTORY)
+            }
+
+            // Insert into MediaStore and get the new file URI
+            val newImageUri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+            newImageUri?.let { uri ->
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    context.contentResolver.openInputStream(imageUri)?.use { inputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+            }
+
+            Resource.Success(newImageUri.toString())
+        } catch (e: Exception) {
+            Resource.Failure(DataError.ImageError.Error(e.message))
+        }
+    }
+
 
     private companion object {
         const val IMAGE_FILE_PREFIX = "receipt_"
