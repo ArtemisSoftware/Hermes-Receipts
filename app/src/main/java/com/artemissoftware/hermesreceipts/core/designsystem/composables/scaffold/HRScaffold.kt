@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.artemissoftware.hermesreceipts.core.designsystem.composables.scaffold
 
 import androidx.compose.animation.AnimatedVisibility
@@ -9,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +28,6 @@ fun HRScaffold(
     floatingActionButton: @Composable () -> Unit = {},
     topBar: @Composable () -> Unit = {},
 ) {
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -57,10 +59,11 @@ fun HRScaffold(
             )
         }
 
-        if(isLoading)
+        if(isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
+        }
     }
 }
 
