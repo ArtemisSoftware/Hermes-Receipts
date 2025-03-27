@@ -12,8 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.BrowseGallery
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ImageSearch
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -33,8 +31,10 @@ import com.artemissoftware.hermesreceipts.core.designsystem.composables.scaffold
 import com.artemissoftware.hermesreceipts.core.designsystem.composables.topbar.HRTopBar
 import com.artemissoftware.hermesreceipts.core.designsystem.spacing
 import com.artemissoftware.hermesreceipts.core.domain.models.Receipt
+import com.artemissoftware.hermesreceipts.core.presentation.composables.events.ManageUIEvents
 import com.artemissoftware.hermesreceipts.core.presentation.composables.permissions.rememberPermissionLauncher
 import com.artemissoftware.hermesreceipts.feature.receipts.presentation.composables.ReceiptCard
+import com.artemissoftware.hermesreceipts.feature.receipts.presentation.navigation.ReceiptsRoute
 import com.artemissoftware.hermesreceipts.ui.theme.HermesReceiptsTheme
 import java.time.LocalDate
 
@@ -56,7 +56,7 @@ internal fun DashboardScreen(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
             uri?.let {
-                navigateToValidation(it.toString())
+                viewModel.onTriggerEvent(DashboardEvent.Save(it))
             }
         }
     )
@@ -68,6 +68,15 @@ internal fun DashboardScreen(
         requestCameraPermission = { requestPermission() },
         openGallery = { galleryLauncher.launch("image/*") },
         state = state
+    )
+
+    ManageUIEvents(
+        uiEvent = viewModel.uiEvent,
+        onNavigateWithRoute = {
+            when(it.value){
+                is ReceiptsRoute.Validation -> navigateToValidation(it.value.imagePath)
+            }
+        },
     )
 }
 
