@@ -1,38 +1,37 @@
 package com.artemissoftware.hermesreceipts.feature.receipts.presentation.composables
 
- import androidx.compose.foundation.clickable
- import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
- import androidx.compose.foundation.layout.size
- import androidx.compose.foundation.shape.RoundedCornerShape
- import androidx.compose.material3.Card
- import androidx.compose.material3.CardDefaults
- import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
- import androidx.compose.ui.Alignment
- import androidx.compose.ui.Modifier
- import androidx.compose.ui.draw.clip
- import androidx.compose.ui.layout.ContentScale
- import androidx.compose.ui.platform.LocalContext
- import androidx.compose.ui.res.stringResource
- import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
- import androidx.compose.ui.unit.dp
- import coil.compose.AsyncImage
- import coil.request.ImageRequest
- import com.artemissoftware.hermesreceipts.R
- import com.artemissoftware.hermesreceipts.core.designsystem.dimension
- import com.artemissoftware.hermesreceipts.core.designsystem.shape
- import com.artemissoftware.hermesreceipts.core.designsystem.spacing
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.artemissoftware.hermesreceipts.R
+import com.artemissoftware.hermesreceipts.core.designsystem.dimension
+import com.artemissoftware.hermesreceipts.core.designsystem.shape
+import com.artemissoftware.hermesreceipts.core.designsystem.spacing
 import com.artemissoftware.hermesreceipts.core.domain.models.Receipt
- import com.artemissoftware.hermesreceipts.core.presentation.composables.description.FieldDescription
- import com.artemissoftware.hermesreceipts.ui.theme.HermesReceiptsTheme
- import com.artemissoftware.hermesreceipts.ui.theme.Blue10
- import java.time.LocalDate
+import com.artemissoftware.hermesreceipts.core.presentation.composables.description.FieldDescription
+import com.artemissoftware.hermesreceipts.ui.theme.Blue10
+import com.artemissoftware.hermesreceipts.ui.theme.HermesReceiptsTheme
+import java.time.LocalDate
 
 @Composable
 internal fun ReceiptCard(
@@ -43,8 +42,8 @@ internal fun ReceiptCard(
     val request = ImageRequest
         .Builder(LocalContext.current)
         .data(receipt.imagePath)
-        .error(R.drawable.ic_launcher_foreground)
-        .placeholder(R.drawable.ic_launcher_foreground)
+        .error(R.drawable.ic_broken)
+        .placeholder(R.drawable.ic_placeholder)
         .crossfade(true)
 
     Card(
@@ -61,7 +60,7 @@ internal fun ReceiptCard(
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.spacing2),
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.spacing3),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ) {
 
             AsyncImage(
@@ -76,7 +75,7 @@ internal fun ReceiptCard(
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.spacing1_5)
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.spacing1)
             ) {
                 FieldDescription(
                     modifier = Modifier.fillMaxWidth(),
@@ -93,7 +92,6 @@ internal fun ReceiptCard(
                 receipt.date?.let {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.End,
                         text = it.toString(),
                         style = MaterialTheme.typography.labelMedium,
                     )
