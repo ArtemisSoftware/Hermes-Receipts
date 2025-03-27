@@ -49,30 +49,30 @@ class ValidationViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-//            update {
-//                it.copy(isLoading = false, receipt = Receipt(
-//                    id = 0,
-//                    store = "Pet shop of horrors",
-//                    total = 25.50,
-//                    date = LocalDate.now(),
-//                    currency = "$",
-//                    imagePath = imagePath
-//                ))
-//            }
+            update {
+                it.copy(isLoading = false, receipt = Receipt(
+                    id = 0,
+                    store = "Pet shop of horrors",
+                    total = 25.50,
+                    date = LocalDate.now(),
+                    currency = "$",
+                    imagePath = imagePath
+                ))
+            }
 
-            scanImageUseCase(imagePath = imagePath)
-                .onSuccess { receipt ->
-                    update {
-                        it.copy(isLoading = false, receipt = receipt)
-                    }
-                }
-                .onFailure { error ->
-                    update {
-                        it.copy(isLoading = false)
-                    }
-
-                    sendError(error.toUiText())
-                }
+//            scanImageUseCase(imagePath = imagePath)
+//                .onSuccess { receipt ->
+//                    update {
+//                        it.copy(isLoading = false, receipt = receipt)
+//                    }
+//                }
+//                .onFailure { error ->
+//                    update {
+//                        it.copy(isLoading = false)
+//                    }
+//
+//                    sendError(error.toUiText())
+//                }
         }
     }
 

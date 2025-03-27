@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -38,16 +39,16 @@ import com.artemissoftware.hermesreceipts.ui.theme.HermesReceiptsTheme
 import java.time.LocalDate
 
 @Composable
-fun DashboardScreen(
+internal fun DashboardScreen(
     navigateToReceiptDetail:(Int) -> Unit,
     navigateToValidation:(String) -> Unit,
-    navigateToCapturePhoto:() -> Unit,
+    navigateToCapture:() -> Unit,
     viewModel: DashboardViewModel = hiltViewModel()
 ) {
 
     val requestPermission = rememberPermissionLauncher(
         permission = Manifest.permission.CAMERA,
-        onPermissionGranted = navigateToCapturePhoto,
+        onPermissionGranted = navigateToCapture,
         onPermissionNotGranted = {}
     )
 
@@ -105,7 +106,8 @@ private fun DashboardContent(
                 icon = {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Camera capture icon")
+                        contentDescription = "Camera capture icon"
+                    )
                 }
             )
         },
@@ -114,7 +116,9 @@ private fun DashboardContent(
                 EmptyReceipts()
             } else {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(MaterialTheme.spacing.spacing2),
                     verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.spacing1),
                 ) {
                     items(
@@ -143,7 +147,7 @@ private fun EmptyReceipts() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "No receipts available",
+            text = stringResource(R.string.no_receipts_available),
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold,
         )
