@@ -5,6 +5,7 @@ sealed interface DataError : Error {
     sealed class ImageError : DataError {
         data class Error(val message: String? = "Error processing image") : ImageError()
         data object CreateImage : ImageError()
+        data object Uri : ImageError()
     }
 
     sealed class NetworkError : DataError {

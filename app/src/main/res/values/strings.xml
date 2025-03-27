@@ -19,4 +19,5 @@
     <string name="unknown_error">An error occurred</string>
     <string name="unknown_host_error">Unknown host error</string>
     <string name="error_not_mapped">Error not mapped</string>
+    <string name="error_getting_image_from_uri">Error getting image from uri</string>
 </resources>

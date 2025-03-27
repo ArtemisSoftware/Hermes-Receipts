@@ -22,8 +22,10 @@ private fun DataError.ImageError.asUiText(): UiText {
         DataError.ImageError.CreateImage -> UiText.StringResource(
             R.string.couldn_t_create_file_for_gallery,
         )
-
         is DataError.ImageError.Error -> UiText.DynamicString(this.message ?: "")
+        DataError.ImageError.Uri -> UiText.StringResource(
+            R.string.error_getting_image_from_uri,
+        )
     }
 }
 
