@@ -14,4 +14,9 @@
     <string name="close">Close</string>
     <string name="error_saving_image">Error saving image</string>
     <string name="couldn_t_create_file_for_gallery">Couldn\'t create file for gallery</string>
+    <string name="connection_error">Connection error</string>
+    <string name="connection_socket_time_out">Socket timeout</string>
+    <string name="unknown_error">An error occurred</string>
+    <string name="unknown_host_error">Unknown host error</string>
+    <string name="error_not_mapped">Error not mapped</string>
 </resources>
