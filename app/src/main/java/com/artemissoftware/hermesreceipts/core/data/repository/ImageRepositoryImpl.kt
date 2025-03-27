@@ -9,6 +9,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import com.artemissoftware.hermesreceipts.core.data.util.ImageConstants.IMAGE_MIME_TYPE
+import com.artemissoftware.hermesreceipts.core.data.util.ImageUtil.getImageName
 import com.artemissoftware.hermesreceipts.core.domain.Resource
 import com.artemissoftware.hermesreceipts.core.domain.error.DataError
 import com.artemissoftware.hermesreceipts.core.domain.repository.ImageRepository
@@ -32,7 +34,7 @@ class ImageRepositoryImpl @Inject constructor(private val context: Context): Ima
         val nowTimestamp: Long = System.currentTimeMillis()
         val imageContentValues: ContentValues = ContentValues().apply {
 
-            put(MediaStore.Images.Media.DISPLAY_NAME, getImageName(nowTimestamp.toString()))
+            put(MediaStore.Images.Media.DISPLAY_NAME, getImageName(IMAGE_FILE_PREFIX, nowTimestamp.toString()))
             put(MediaStore.Images.Media.MIME_TYPE, IMAGE_MIME_TYPE)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -68,24 +70,21 @@ class ImageRepositoryImpl @Inject constructor(private val context: Context): Ima
             }.getOrElse { exception: Throwable ->
                 exception.message?.let(::println)
                 resolver.delete(uri, null, null)
-                Resource.Failure(DataError.ImageError.Error(exception.message ?: "Error saving image"))
+                Resource.Failure(DataError.ImageError.Error(exception.message))
             }
         } ?: run {
-            Resource.Failure(DataError.ImageError.Error("Couldn't create file for gallery"))
+            Resource.Failure(DataError.ImageError.CreateImage)
         }
 
         return result
     }
-
-    private fun getImageName(time: String) = "receipt_$time.$IMAGE_EXTENSION"
 
     private fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
 
     private companion object {
-        const val IMAGE_EXTENSION = "jpg"
-        const val IMAGE_MIME_TYPE = "image/jpg"
+        const val IMAGE_FILE_PREFIX = "receipt_"
         const val IMAGE_DIRECTORY = "/receipts"
     }
 }
