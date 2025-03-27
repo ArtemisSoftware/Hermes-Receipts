@@ -3,7 +3,8 @@ package com.artemissoftware.hermesreceipts.core.domain.error
 sealed interface DataError : Error {
 
     sealed class ImageError : DataError {
-        data class Error(val message: String) : ImageError()
+        data class Error(val message: String? = "Error processing image") : ImageError()
+        data object CreateImage : ImageError()
     }
 
     sealed class NetworkError : DataError {
