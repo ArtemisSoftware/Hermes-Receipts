@@ -3,7 +3,7 @@ package com.artemissoftware.hermesreceipts.core.domain.models
 import java.time.LocalDate
 
 data class Receipt(
-    val id: Int,
+    val id: Int = 0,
     val imagePath: String,
     val store: String? = null,
     val date: LocalDate? = null,

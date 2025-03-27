@@ -11,4 +11,5 @@ data class ReceiptEntity(
     val total: Double? = null,
     val store: String? = null,
     val date: Long? = null,
+    val imagePath: String,
 )
