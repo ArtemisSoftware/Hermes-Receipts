@@ -5,6 +5,7 @@ import com.artemissoftware.hermesreceipts.core.domain.models.Receipt
 import com.artemissoftware.hermesreceipts.feature.receipts.domain.repository.ReceiptsRepository
 import com.artemissoftware.hermesreceipts.testdata.TestData.receipt
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 class FakeReceiptRepository: ReceiptsRepository {
 
@@ -23,7 +24,7 @@ class FakeReceiptRepository: ReceiptsRepository {
     }
 
     override suspend fun getAllReceipt(): Flow<List<Receipt>> {
-        TODO("Not yet implemented")
+        return flowOf(data)
     }
 
     override suspend fun saveReceipt(receipt: Receipt) {
