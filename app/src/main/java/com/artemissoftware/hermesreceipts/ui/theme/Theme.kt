@@ -57,12 +57,9 @@ fun HermesReceiptsTheme(
         else -> LightColorScheme
     }
     CompositionLocalProvider(
-        //localWindow provides if(isLandScape) landScape else portrait,
         localSpacing provides spacing,
         localDimension provides dimensionPortrait,
         localShape provides shape,
-        //localPalette provides if (darkTheme) paletteDark else paletteLight,
-        //localFixedPalette provides fixedPalette,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

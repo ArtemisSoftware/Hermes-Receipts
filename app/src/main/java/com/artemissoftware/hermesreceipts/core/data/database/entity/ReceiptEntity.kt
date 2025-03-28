@@ -10,6 +10,6 @@ data class ReceiptEntity(
     val currency: String? = null,
     val total: Double? = null,
     val store: String? = null,
-    val date: Long? = null,
+    val date: Long,
     val imagePath: String,
 )

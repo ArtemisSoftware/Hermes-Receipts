@@ -6,6 +6,7 @@ import com.artemissoftware.hermesreceipts.core.domain.util.extensions.toEpochMil
 import com.artemissoftware.hermesreceipts.core.domain.util.extensions.toLocalDate
 import com.artemissoftware.hermesreceipts.feature.receipts.data.remote.dto.OcrDto
 import com.artemissoftware.hermesreceipts.feature.receipts.data.remote.dto.ReceiptDto
+import java.time.LocalDate
 
 internal fun OcrDto.toReceipt(imagePath: String): Receipt {
     val receipt = this.receipts.first()
@@ -18,7 +19,7 @@ private fun ReceiptDto.toReceipt(imagePath: String): Receipt {
         store = merchantName,
         total = total,
         currency = currency,
-        date = date.toLocalDate()
+        date = date?.toLocalDate() ?: LocalDate.now(),
     )
 }
 
@@ -29,7 +30,7 @@ internal fun ReceiptEntity.toReceipt(): Receipt {
         store = store,
         total = total,
         currency = currency,
-        date = date!!.toLocalDate()
+        date = date.toLocalDate()
     )
 }
 
@@ -39,7 +40,7 @@ internal fun Receipt.toEntity(): ReceiptEntity {
         store = store,
         total = total,
         currency = currency,
-        date = date!!.toEpochMillis(),
+        date = date?.toEpochMillis() ?: LocalDate.now().toEpochMillis(),
         id = id
     )
 }

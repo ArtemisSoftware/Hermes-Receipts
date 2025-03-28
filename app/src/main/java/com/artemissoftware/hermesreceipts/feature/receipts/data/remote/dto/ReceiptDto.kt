@@ -6,11 +6,11 @@ import com.squareup.moshi.JsonClass
 
 data class ReceiptDto(
     @field:Json(name = "currency")
-    val currency: String = "",
+    val currency: String? = null,
     @field:Json(name = "date")
-    val date: String = "",
+    val date: String? = null,
     @field:Json(name = "merchant_name")
-    val merchantName: String = "",
+    val merchantName: String? = null,
     @field:Json(name = "total")
-    val total: Double = 0.0,
+    val total: Double? = null,
 )

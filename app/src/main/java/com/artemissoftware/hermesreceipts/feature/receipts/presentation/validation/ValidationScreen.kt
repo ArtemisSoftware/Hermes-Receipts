@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -122,6 +123,11 @@ private fun ValidationContent(
                     )
                 }
 
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.spacing4))
+                Text(
+                    text = stringResource(R.string.please_validate_the_data_before_saving),
+                    style = MaterialTheme.typography.labelMedium,
+                )
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.spacing4))
 
                 HRButton(
