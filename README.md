@@ -25,7 +25,7 @@ Easily capture, store, and manage expense receipts while ensuring offline access
 ## 📷 Screenshots  
 | History                          | Receipt Details                  | Capture Receipt                  |  
 |----------------------------------|----------------------------------|----------------------------------|  
-| <img src="images/capture_3.jpg"> | <img src="images/capture_2.jpg"> | <img src="images/capture_1.jpg"> |  
+| <img src="images/capture_2.jpg"> | <img src="images/capture_3.jpg"> | <img src="images/capture_1.jpg"> |  
 
 
 
