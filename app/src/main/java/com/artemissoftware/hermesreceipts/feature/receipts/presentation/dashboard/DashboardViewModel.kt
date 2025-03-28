@@ -1,12 +1,15 @@
 package com.artemissoftware.hermesreceipts.feature.receipts.presentation.dashboard
 
 import android.net.Uri
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.artemissoftware.hermesreceipts.core.domain.error.DataError
 import com.artemissoftware.hermesreceipts.core.presentation.composables.events.UiEvent
 import com.artemissoftware.hermesreceipts.core.presentation.composables.events.UiEventViewModel
+import com.artemissoftware.hermesreceipts.core.presentation.util.UiText
+import com.artemissoftware.hermesreceipts.core.presentation.util.extensions.toUiText
+import com.artemissoftware.hermesreceipts.feature.capture.presentation.navigation.CaptureRoute
 import com.artemissoftware.hermesreceipts.feature.receipts.domain.usecase.GetAllReceiptsUseCase
-import com.artemissoftware.hermesreceipts.feature.receipts.domain.usecase.SaveImageFromUri
+import com.artemissoftware.hermesreceipts.feature.receipts.domain.usecase.SaveImageFromUriUseCase
 import com.artemissoftware.hermesreceipts.feature.receipts.presentation.navigation.ReceiptsRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val getAllReceiptsUseCase: GetAllReceiptsUseCase,
-    private val saveImageFromUri: SaveImageFromUri
+    private val saveImageFromUriUseCase: SaveImageFromUriUseCase
 ): UiEventViewModel(){
 
     private val _state = MutableStateFlow(DashboardState())
@@ -37,9 +40,16 @@ class DashboardViewModel @Inject constructor(
 
     private fun save(uri: Uri) {
         viewModelScope.launch {
-            saveImageFromUri(uri.toString())
+            saveImageFromUriUseCase(uri.toString())
                 .onSuccess {
                     sendEvent(it)
+                }
+                .onFailure { error ->
+                    when(error){
+                        DataError.ImageError.CreateImage -> sendError(error.toUiText())
+                        is DataError.ImageError.Error -> sendError(error.toUiText())
+                        else -> Unit
+                    }
                 }
         }
     }
@@ -59,6 +69,12 @@ class DashboardViewModel @Inject constructor(
             sendUiEvent(
                 UiEvent.NavigateWithRoute(ReceiptsRoute.Validation(imagePath))
             )
+        }
+    }
+
+    private fun sendError(message: UiText) {
+        viewModelScope.launch {
+            sendUiEvent(UiEvent.Navigate(message, CaptureRoute.ERROR))
         }
     }
 }

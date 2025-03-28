@@ -22,6 +22,7 @@ fun NavGraphBuilder.receiptsNavGraph(
                 navController.navigate(ReceiptsRoute.Validation(it))
             },
             navigateToCapture = navigateToCapture,
+            navigateToError = navigateToError
         )
     }
 

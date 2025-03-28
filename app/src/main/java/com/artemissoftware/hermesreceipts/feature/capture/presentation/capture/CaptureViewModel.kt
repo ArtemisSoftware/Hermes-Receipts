@@ -44,11 +44,11 @@ class CaptureViewModel @Inject constructor(
             _state.value.capturedBitmap?.let { bitmap ->
                 saveImageUseCase.invoke(bitmap.toByteArray())
                     .onSuccess { path ->
-                        _state.update { it.copy(imagePath = path, isLoading = false) }
+                        _state.update { it.copy(imagePath = path) }
                         sendEvent(path)
                     }
                     .onFailure { error ->
-                        _state.update { it.copy(isLoading = false) }
+                        _state.update { it.copy() }
                         when(error){
                             DataError.ImageError.CreateImage -> sendError(error.toUiText())
                             is DataError.ImageError.Error -> sendError(error.toUiText())

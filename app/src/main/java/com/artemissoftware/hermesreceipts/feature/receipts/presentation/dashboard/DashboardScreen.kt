@@ -1,6 +1,10 @@
 package com.artemissoftware.hermesreceipts.feature.receipts.presentation.dashboard
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -19,20 +23,28 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.artemissoftware.hermesreceipts.R
 import com.artemissoftware.hermesreceipts.core.designsystem.composables.scaffold.HRScaffold
 import com.artemissoftware.hermesreceipts.core.designsystem.composables.topbar.HRTopBar
 import com.artemissoftware.hermesreceipts.core.designsystem.spacing
+import com.artemissoftware.hermesreceipts.core.domain.error.DataError
 import com.artemissoftware.hermesreceipts.core.domain.models.Receipt
 import com.artemissoftware.hermesreceipts.core.presentation.composables.events.ManageUIEvents
 import com.artemissoftware.hermesreceipts.core.presentation.composables.permissions.rememberPermissionLauncher
+import com.artemissoftware.hermesreceipts.core.presentation.util.UiText
+import com.artemissoftware.hermesreceipts.core.presentation.util.extensions.toUiText
+import com.artemissoftware.hermesreceipts.feature.capture.presentation.navigation.CaptureRoute
 import com.artemissoftware.hermesreceipts.feature.receipts.presentation.composables.ReceiptCard
 import com.artemissoftware.hermesreceipts.feature.receipts.presentation.navigation.ReceiptsRoute
 import com.artemissoftware.hermesreceipts.ui.theme.HermesReceiptsTheme
@@ -43,14 +55,23 @@ internal fun DashboardScreen(
     navigateToReceiptDetail:(Int) -> Unit,
     navigateToValidation:(String) -> Unit,
     navigateToCapture:() -> Unit,
+    navigateToError:(String) -> Unit,
     viewModel: DashboardViewModel = hiltViewModel()
 ) {
+
+    val context = LocalContext.current
 
     val requestPermission = rememberPermissionLauncher(
         permission = Manifest.permission.CAMERA,
         onPermissionGranted = navigateToCapture,
-        onPermissionNotGranted = {}
+        onPermissionNotGranted = {
+            navigateToError(DataError.ImageError.CameraPermission.toUiText().asString(context))
+        }
     )
+
+    val shouldShowRationale = remember {
+        mutableStateOf(ActivityCompat.shouldShowRequestPermissionRationale(context as Activity, Manifest.permission.CAMERA))
+    }
 
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
@@ -65,7 +86,16 @@ internal fun DashboardScreen(
 
     DashboardContent(
         navigateToReceiptDetail = navigateToReceiptDetail,
-        requestCameraPermission = { requestPermission() },
+        requestCameraPermission = {
+            if (shouldShowRationale.value) {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", context.packageName, null)
+                }
+                context.startActivity(intent)
+            } else {
+                requestPermission()
+            }
+        },
         openGallery = { galleryLauncher.launch("image/*") },
         state = state
     )
@@ -77,6 +107,12 @@ internal fun DashboardScreen(
                 is ReceiptsRoute.Validation -> navigateToValidation(it.value.imagePath)
             }
         },
+        onNavigate = {
+            when(it.route){
+                CaptureRoute.ERROR -> navigateToError((it.value as UiText).asString(context))
+                else -> Unit
+            }
+        }
     )
 }
 

@@ -22,4 +22,5 @@
     <string name="error_getting_image_from_uri">Error getting image from uri</string>
     <string name="no_receipt_found">No receipt found</string>
     <string name="no_receipts_available">No receipts available</string>
+    <string name="app_need_camera_to_scan_photos">App need camera to scan photos</string>
 </resources>

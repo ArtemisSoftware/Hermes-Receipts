@@ -40,7 +40,8 @@ internal fun CaptureScreen(
 
     CaptureContent(
         state = state,
-        onEvent = viewModel::onTriggerEvent
+        onEvent = viewModel::onTriggerEvent,
+        navigateToError = navigateToError
     )
 
     ManageUIEvents(
@@ -58,7 +59,8 @@ internal fun CaptureScreen(
 @Composable
 private fun CaptureContent(
     state: CaptureState,
-    onEvent: (CaptureEvent) -> Unit
+    onEvent: (CaptureEvent) -> Unit,
+    navigateToError:(String) -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -95,7 +97,7 @@ private fun CaptureContent(
                                 onEvent(CaptureEvent.UpdateCapturedPhoto(bitmap))
                             },
                             onError = {
-
+                                navigateToError(it)
                             }
                         )
                     },
@@ -112,7 +114,8 @@ private fun CaptureScreenPreview() {
     HermesReceiptsTheme {
         CaptureContent(
             state = CaptureState(),
-            onEvent = {}
+            onEvent = {},
+            navigateToError = {}
         )
     }
 }

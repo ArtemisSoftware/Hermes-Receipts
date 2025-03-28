@@ -26,6 +26,8 @@ private fun DataError.ImageError.asUiText(): UiText {
         DataError.ImageError.Uri -> UiText.StringResource(
             R.string.error_getting_image_from_uri,
         )
+
+        DataError.ImageError.CameraPermission -> UiText.StringResource(R.string.app_need_camera_to_scan_photos)
     }
 }
 
