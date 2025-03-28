@@ -23,9 +23,9 @@ Easily capture, store, and manage expense receipts while ensuring offline access
 4. **Persistent Storage** 💾 - Ensures receipts are saved locally in Room Database.
 
 ## 📷 Screenshots  
-| Capture Receipt | Receipt Details | History |  
-|----------------|----------------|---------|  
-| <img src="images/capture.jpg"> | <img src="images/details.jpg"> | <img src="images/history.jpg"> |  
+| History                          | Receipt Details                  | Capture Receipt                  |  
+|----------------------------------|----------------------------------|----------------------------------|  
+| <img src="images/capture_3.jpg"> | <img src="images/capture_2.jpg"> | <img src="images/capture_1.jpg"> |  
 
 
 
