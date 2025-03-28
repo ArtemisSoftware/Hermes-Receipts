@@ -1,4 +1,4 @@
-# 📸 HErmes-Receipts
+# 📸 Hermes-Receipts
 
 An offline-first Android app to capture and manage expense receipts.
 
